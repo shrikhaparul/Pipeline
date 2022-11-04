@@ -1,0 +1,57 @@
+{
+"project_id": "1234",		
+"project_name": "intellikart",	
+"task": {	
+    "task_id": "task_id_1",	
+	"task_name": "",
+	"task_type": "ingestion",
+	"active": "Y",
+	"execution_order": "",
+	"config_file": "C:\\Users\\RaviKiranPerumandla\\OneDrive - A&H Infotech Pvt. Ltd\\Desktop\\Ingestionkart\\python\\local_copy\\config.ini",
+	"source": {	
+		"source_type": "csvfile",
+        "source_file_path": "C:\\Users\\RaviKiranPerumandla\\Downloads\\sales\\",
+        "source_file_name": "Combined_Flights",
+        "load_method": "",
+		"extract_type": "",
+        "connection_name": "",
+		"table_name": "",
+		"schema": "",
+		"query": "",
+        "file_format": "",
+		"delimiter": " ",
+        "header": " ",
+        "footer": " ",
+        "quote_char": " ",
+        "escape_char": " ",
+        "columns":  " ",
+		"chunk_size": 500,			
+		"quoting": "",		
+		"encoding": ""
+    },
+	"target": {	
+		"target_type": "postgres",
+		"load_type": "",
+		"batch_size": "",
+		"connection_name": "postgresql_1",
+		"table_name": "sales_combo",
+		"schema": "public",
+        "file_delimiter": "",
+		"file_format": "",
+		"target_file_path": "",
+		"encoding": "",
+        "if_exists":"create"
+    },
+	"data_quailty": {
+			"dq_id": "",
+			"type": "pre_check",
+			"check": "column_values_to_be_between",
+			"parameters": "SALES|0|15000",
+			"active": "Y",
+			"ignore_bad_records": "Y",
+			"threshold_bad_records": "30"
+		}
+	,
+	"on_failure": ""
+  }
+}
