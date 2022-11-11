@@ -33,7 +33,7 @@
 			"target_type": "postgres_write",
 			"load_type": "",
 			"batch_size": "",
-			"connection_name": "source_postgresql",
+			"connection_name": "source_postgresql.ini",
 			"table_name": "sales_demo",
 			"schema": "public",
 			"file_delimiter": "",
