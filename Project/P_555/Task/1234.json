@@ -7,7 +7,7 @@
 		"task_type": "ingestion",
 		"active": "Y",
 		"execution_order": "",
-		"config_file": "C:\\Users\\ParulShrikhande\\Desktop\\test\\config.ini",
+		"config_file": "C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\config.ini",
 		"source": {	
 			"source_type": "csv_read",
 			"source_file_path": "C:\\Users\\ParulShrikhande\\Desktop\\dq_checks_file\\",
