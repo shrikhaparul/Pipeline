@@ -1,1 +1,0 @@
-in postgres write file
