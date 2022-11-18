@@ -4,7 +4,7 @@ import json
 import logging
 import sqlalchemy
 from utility import db_table_exists,establish_mysql_conn
-from mysql_read_file import read
+
 
 
 def create(json_data: dict, conn, dataframe) :
