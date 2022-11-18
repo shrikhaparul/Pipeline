@@ -19,7 +19,7 @@
             "table_name": "sales1234",
             "schema": "njdot",
             "query": "",
-            "source_file_path": "C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\postgresql_1.ini",
+            "source_file_path": "C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\mysql.ini",
             "escape_char": "",
             "quote_char": "",
             "quoting": "",
@@ -37,7 +37,7 @@
             "schema": "njdot",
             "file_delimiter": "",
             "file_format": "",
-            "target_file_path": "C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\postgresql_1.ini",
+            "target_file_path": "C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\mysql.ini",
             "encoding": "",
             "if_exists":"create"
         },
