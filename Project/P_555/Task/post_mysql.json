@@ -37,7 +37,7 @@
             "schema": "njdot",
             "file_delimiter": "",
             "file_format": "",
-            "target_file_path": "C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\postgresql_1.ini",
+            "target_file_path": "C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\mysql.ini",
             "encoding": "",
             "if_exists":"create"
         },
