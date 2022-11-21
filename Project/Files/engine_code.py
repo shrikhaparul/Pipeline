@@ -52,9 +52,8 @@ def download_files(Project_id,Task_id,path):
 
     subprocess.call(mapping_file)
 
-    with open(
-    r"C:/Users/ParulShrikhande/Desktop/Latest_code/mapping.json","r", encoding='utf-8') as mapjson:
-    config_new_json = json.load(mapjson)
+    with open(r"C:/Users/ParulShrikhande/Desktop/Latest_code/mapping.json","r", encoding='utf-8') as mapjson:
+        config_new_json = json.load(mapjson)
     
     
     source_file_name=(config_new_json["mapping"][source_type])
