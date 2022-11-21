@@ -73,9 +73,7 @@ def download_files(Project_id,Task_id,path):
     subprocess.call(QC_py)
     subprocess.call(Utility_py)
 
-Project_id= 'P_555'
-Task_id = '1234'
-download_files(Project_id,Task_id,new_path)
+
 
 
 #from utility import initiate_logging
