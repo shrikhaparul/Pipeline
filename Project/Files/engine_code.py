@@ -75,8 +75,8 @@ def download_files(Project_id,Task_id,path):
 
 
 
-
-from utility import initiate_logging
+print("hello stupid")
+#from utility import initiate_logging
 # import definitions_qc as dq
 # ## logging module
 # initiate_logging('engine_log', r"C:/Users/ParulShrikhande/Desktop/Latest_code/logging/")
