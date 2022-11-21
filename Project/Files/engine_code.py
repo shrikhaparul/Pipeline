@@ -31,49 +31,51 @@ def download_files(Project_id,Task_id,path):
     subprocess.call(src_ini)
     subprocess.call(trgt_ini)
     subprocess.call(config_ini)
-    print("heloooooo")
-    
-#     #connecting with github
-#     g = Github("shrikhaparul", "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")
-#     repo = g.get_user().get_repo('intelli_kart')
-    
-#     #reading git hub data
-#     mapping =repo.get_contents("mapping.json")
-    
-#     print(mapping)
-#     print(target_type)
-    
-#     y= mapping.decoded_content.decode()
-    
-#     data = json.loads(y)
-    
-#     print(target_type)
-#     print(data["default"]["QC_checks"])
-#     source_file_name=(data["mapping"][source_type])
-#     print(data["mapping"][source_type])
-#     target_file_name=(data["mapping"][target_type])
-#     QC_check_file=data["default"]["QC_checks"]
-#     Utility_file=data["default"]["Utility"]
-#     print(QC_check_file,Utility_file)
-    
-#     #curl command for downloading the files
-#     src_py = 'curl -o '+path+source_file_name+' '\
-#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+source_file_name
-#     trgt_py = 'curl -o '+path+target_file_name+' '\
-#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+target_file_name
-#     QC_py= 'curl -o '+path+QC_check_file+' '\
-#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+QC_check_file
-#     Utility_py= 'curl -o '+path+Utility_file+' '\
-#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+Utility_file
-    
-#     #calling the subprocess to run curl command function
-#     subprocess.call(src_py)
-#     subprocess.call(trgt_py)
-#     subprocess.call(QC_py)
-#     subprocess.call(Utility_py)
+    print("oooooooooooooooooooooo")
 
+    
+    #connecting with github
+    g = Github("shrikhaparul", "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")
+    repo = g.get_user().get_repo('intelli_kart')
+    
+    #reading git hub data
+    mapping =repo.get_contents("mapping.json")
+    
+    print(mapping)
+    print(target_type)
+    
+    y= mapping.decoded_content.decode()
+    
+    data = json.loads(y)
+    
+    print(target_type)
+    print(data["default"]["QC_checks"])
+    source_file_name=(data["mapping"][source_type])
+    print(data["mapping"][source_type])
+    target_file_name=(data["mapping"][target_type])
+    QC_check_file=data["default"]["QC_checks"]
+    Utility_file=data["default"]["Utility"]
+    print(QC_check_file,Utility_file)
+    
+    #curl command for downloading the files
+    src_py = 'curl -o '+path+source_file_name+' '\
+    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+source_file_name
+    trgt_py = 'curl -o '+path+target_file_name+' '\
+    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+target_file_name
+    QC_py= 'curl -o '+path+QC_check_file+' '\
+    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+QC_check_file
+    Utility_py= 'curl -o '+path+Utility_file+' '\
+    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+Utility_file
+    
+    #calling the subprocess to run curl command function
+    subprocess.call(src_py)
+    subprocess.call(trgt_py)
+    subprocess.call(QC_py)
+    subprocess.call(Utility_py)
 
-
+Project_id= 'P_555'
+Task_id = '1234'
+download_files(Project_id,Task_id,new_path)
 
 
 #from utility import initiate_logging
