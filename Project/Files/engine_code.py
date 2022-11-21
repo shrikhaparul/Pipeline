@@ -34,27 +34,34 @@ def download_files(Project_id,Task_id,path):
     print("oooooooooooooooooooooo")
 
     
-    #connecting with github
-    g = Github("shrikhaparul", "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")
-    repo = g.get_user().get_repo('intelli_kart')
+#     #connecting with github
+#     g = Github("shrikhaparul", "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")
+#     repo = g.get_user().get_repo('intelli_kart')
     
-    #reading git hub data
-    mapping =repo.get_contents("mapping.json")
+#     #reading git hub data
+#     mapping =repo.get_contents("mapping.json")
     
-    print(mapping)
-    print(target_type)
+#     print(mapping)
+#     print(target_type)
     
-    y= mapping.decoded_content.decode()
+#     y= mapping.decoded_content.decode()
     
-    data = json.loads(y)
+#     data = json.loads(y)
+    mapping_file='curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\mapping.json '\
+    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/mapping.json'
+
+    subprocess.call(mapping_file)
+
+    with open(
+    r"C:/Users/ParulShrikhande/Desktop/Latest_code/mapping.json","r", encoding='utf-8') as mapjson:
+    config_new_json = json.load(mapjson)
     
-    print(target_type)
-    print(data["default"]["QC_checks"])
-    source_file_name=(data["mapping"][source_type])
-    print(data["mapping"][source_type])
-    target_file_name=(data["mapping"][target_type])
-    QC_check_file=data["default"]["QC_checks"]
-    Utility_file=data["default"]["Utility"]
+    
+    source_file_name=(config_new_json["mapping"][source_type])
+    
+    target_file_name=(config_new_json["mapping"][target_type])
+    QC_check_file=config_new_json["default"]["QC_checks"]
+    Utility_file=config_new_json["default"]["Utility"]
     print(QC_check_file,Utility_file)
     
     #curl command for downloading the files
