@@ -35,7 +35,7 @@ def download_files(Project_id,Task_id,path):
 
     
     #connecting with github
-    g = Github("shrikhaparul", "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")
+    g = Github("shrikhaparul", "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")
     repo = g.get_user().get_repo('intelli_kart')
     
     #reading git hub data
