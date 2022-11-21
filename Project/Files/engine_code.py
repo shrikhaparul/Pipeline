@@ -1,76 +1,76 @@
-""" importing modules """
-import json
-import logging
-import datetime
-import sqlalchemy
-import pandas as pd
-from github import Github
-import subprocess
+# """ importing modules """
+# import json
+# import logging
+# import datetime
+# import sqlalchemy
+# import pandas as pd
+# from github import Github
+# import subprocess
 
-def download_files(Project_id,Task_id,path):
-    x=path+Task_id+".json"
-    print(x)
-    with open(
-        r""+path+Task_id+".json","r", encoding='utf-8') as jsonfile:
-        config_json = json.load(jsonfile)
-    source_conn_file = config_json['task']['source']['connection_name']
-    target_conn_file = config_json['task']['target']['connection_name']
-    source_type = config_json['task']['source']['source_type']
-    target_type = config_json['task']['target']['target_type']
-    print(source_conn_file,target_conn_file,source_type,target_type)
+# def download_files(Project_id,Task_id,path):
+#     x=path+Task_id+".json"
+#     print(x)
+#     with open(
+#         r""+path+Task_id+".json","r", encoding='utf-8') as jsonfile:
+#         config_json = json.load(jsonfile)
+#     source_conn_file = config_json['task']['source']['connection_name']
+#     target_conn_file = config_json['task']['target']['connection_name']
+#     source_type = config_json['task']['source']['source_type']
+#     target_type = config_json['task']['target']['target_type']
+#     print(source_conn_file,target_conn_file,source_type,target_type)
     
     
-    #curl command for downloading the files
-    src_ini = 'curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\'+source_conn_file+'.ini '\
-    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/'+Project_id+'/'+source_conn_file+'.ini'
-    trgt_ini = 'curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\'+target_conn_file+'.ini '\
-    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/'+Project_id+'/'+target_conn_file+'.ini'
-    config_ini= 'curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\'+'config.ini '\
-    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/'+Project_id+'/'+'config.ini'
+#     #curl command for downloading the files
+#     src_ini = 'curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\'+source_conn_file+'.ini '\
+#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/'+Project_id+'/'+source_conn_file+'.ini'
+#     trgt_ini = 'curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\'+target_conn_file+'.ini '\
+#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/'+Project_id+'/'+target_conn_file+'.ini'
+#     config_ini= 'curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\'+'config.ini '\
+#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/'+Project_id+'/'+'config.ini'
     
-    subprocess.call(src_ini)
-    subprocess.call(trgt_ini)
-    subprocess.call(config_ini)
+#     subprocess.call(src_ini)
+#     subprocess.call(trgt_ini)
+#     subprocess.call(config_ini)
 
     
-    #connecting with github
-    g = Github("shrikhaparul", "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")
-    repo = g.get_user().get_repo('intelli_kart')
+#     #connecting with github
+#     g = Github("shrikhaparul", "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")
+#     repo = g.get_user().get_repo('intelli_kart')
     
-    #reading git hub data
-    mapping =repo.get_contents("mapping.json")
+#     #reading git hub data
+#     mapping =repo.get_contents("mapping.json")
     
-    print(mapping)
-    print(target_type)
+#     print(mapping)
+#     print(target_type)
     
-    y= mapping.decoded_content.decode()
+#     y= mapping.decoded_content.decode()
     
-    data = json.loads(y)
+#     data = json.loads(y)
     
-    print(target_type)
-    print(data["default"]["QC_checks"])
-    source_file_name=(data["mapping"][source_type])
-    print(data["mapping"][source_type])
-    target_file_name=(data["mapping"][target_type])
-    QC_check_file=data["default"]["QC_checks"]
-    Utility_file=data["default"]["Utility"]
-    print(QC_check_file,Utility_file)
+#     print(target_type)
+#     print(data["default"]["QC_checks"])
+#     source_file_name=(data["mapping"][source_type])
+#     print(data["mapping"][source_type])
+#     target_file_name=(data["mapping"][target_type])
+#     QC_check_file=data["default"]["QC_checks"]
+#     Utility_file=data["default"]["Utility"]
+#     print(QC_check_file,Utility_file)
     
-    #curl command for downloading the files
-    src_py = 'curl -o '+path+source_file_name+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+source_file_name
-    trgt_py = 'curl -o '+path+target_file_name+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+target_file_name
-    QC_py= 'curl -o '+path+QC_check_file+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+QC_check_file
-    Utility_py= 'curl -o '+path+Utility_file+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+Utility_file
+#     #curl command for downloading the files
+#     src_py = 'curl -o '+path+source_file_name+' '\
+#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+source_file_name
+#     trgt_py = 'curl -o '+path+target_file_name+' '\
+#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+target_file_name
+#     QC_py= 'curl -o '+path+QC_check_file+' '\
+#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+QC_check_file
+#     Utility_py= 'curl -o '+path+Utility_file+' '\
+#     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/'+Utility_file
     
-    #calling the subprocess to run curl command function
-    subprocess.call(src_py)
-    subprocess.call(trgt_py)
-    subprocess.call(QC_py)
-    subprocess.call(Utility_py)
+#     #calling the subprocess to run curl command function
+#     subprocess.call(src_py)
+#     subprocess.call(trgt_py)
+#     subprocess.call(QC_py)
+#     subprocess.call(Utility_py)
 
 
 
