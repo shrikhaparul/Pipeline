@@ -17,15 +17,18 @@ def download_files(Project_id,Task_id,path):
     target_conn_file = config_json['task']['target']['connection_name']
     source_type = config_json['task']['source']['source_type']
     target_type = config_json['task']['target']['target_type']
+    src_loc=config_json['task']['source']['source_file_path']
+    trg_loc= config_json['task']['target']['target_file_path']
+    config_loc= config_json['task']['config_file']
     print(source_conn_file,target_conn_file,source_type,target_type)
     
     
     #curl command for downloading the files
-    src_ini = 'curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\'+source_conn_file+'.ini '\
+    src_ini = 'curl -o '+src_loc+' '\
     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/'+Project_id+'/'+source_conn_file+'.ini'
-    trgt_ini = 'curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\'+target_conn_file+'.ini '\
+    trgt_ini = 'curl -o '+trg_loc+' '\
     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/'+Project_id+'/'+target_conn_file+'.ini'
-    config_ini= 'curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\'+'config.ini '\
+    config_ini= 'curl -o '+config_loc+' '\
     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/'+Project_id+'/'+'config.ini'
     
     subprocess.call(src_ini)
@@ -97,8 +100,8 @@ def engine_main(Project_id,Task_id,path):
         logging.exception("error in reading json %s.", str(error))
         raise Exception("error in reading json: " + str(error)) from error
 
-    # Precheck code
-    pre_check = dq.qc_pre_check(json_data)
+    # # Precheck code
+    # pre_check = dq.qc_pre_check(json_data)
 
 
     #ingestion code
