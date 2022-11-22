@@ -97,8 +97,8 @@ def engine_main(Project_id,Task_id,path):
         logging.exception("error in reading json %s.", str(error))
         raise Exception("error in reading json: " + str(error)) from error
 
-    # # Precheck code
-    # pre_check = dq.qc_pre_check(json_data)
+    # Precheck code
+    pre_check = dq.qc_pre_check(json_data)
 
 
     #ingestion code
