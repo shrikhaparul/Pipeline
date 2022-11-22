@@ -47,12 +47,12 @@ def download_files(Project_id,Task_id,path):
 #     y= mapping.decoded_content.decode()
     
 #     data = json.loads(y)
-    mapping_file='curl -o C:\\Users\\ParulShrikhande\\Desktop\\Latest_code\\mapping.json '\
+    mapping_file='curl -o '+path+mapping.json '\
     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/mapping.json'
 
     subprocess.call(mapping_file)
 
-    with open(r"C:/Users/ParulShrikhande/Desktop/Latest_code/mapping.json","r", encoding='utf-8') as mapjson:
+    with open(r""+path+'mapping.json',"r", encoding='utf-8') as mapjson:
         config_new_json = json.load(mapjson)
     
     
