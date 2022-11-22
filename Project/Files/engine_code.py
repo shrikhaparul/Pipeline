@@ -85,7 +85,7 @@ def engine_main(Project_id,Task_id,path):
     from utility import initiate_logging
     import definitions_qc as dq
     ## logging module
-    initiate_logging('engine_log', r"C:/Users/ParulShrikhande/Desktop/Latest_code/logging/")
+    initiate_logging('engine_log', r""+path)
     logging.info('logging initiated')
     # reading the json file
     try:
