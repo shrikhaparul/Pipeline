@@ -4,7 +4,7 @@ import logging
 import datetime
 import sqlalchemy
 import pandas as pd
-from github import Github
+
 import subprocess
 
 def download_files(Project_id,Task_id,path):
