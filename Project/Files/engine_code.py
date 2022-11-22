@@ -81,7 +81,7 @@ def download_files(Project_id,Task_id,path):
 
 
 
-def engine_main():
+def engine_main(Project_id,Task_id,path):
     from utility import initiate_logging
     import definitions_qc as dq
     ## logging module
@@ -89,7 +89,7 @@ def engine_main():
     logging.info('logging initiated')
     # reading the json file
     try:
-        with open(r"C:/Users/ParulShrikhande/Desktop/Latest_code/12345.json",'r', encoding='utf-8') as jsonfile:
+        with open(r""+path+Task_id+".json","r", encoding='utf-8') as jsonfile:
             logging.info("reading json data started")
             json_data = json.load(jsonfile)
             logging.info("reading json data completed")
