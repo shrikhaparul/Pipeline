@@ -14,7 +14,7 @@ def create(json_data: dict, conn, dataframe) :
             logging.info('%s does not exists so creating a new table',json_data["task"]["target"]["table_name"])
             dataframe.to_sql(json_data["task"]["target"]["table_name"], conn,
                 index = False, if_exists = "append")
-            logging.info("postgres ingestion completed")
+            logging.info("mysql ingestion completed")
         else:
             # if table exists, it will say table is already present, give new name to create
             logging.error('%s already exists, so give a new table name to create',
@@ -33,7 +33,7 @@ def append(json_data: dict, conn: dict, dataframe) -> bool:
             logging.info("%s table exists, started appending the data to table",
             json_data["task"]["target"]["table_name"])
             dataframe.to_sql(json_data["task"]["target"]["table_name"], conn, index = False, if_exists = "append")
-            logging.info("postgres ingestion completed")
+            logging.info("mysql ingestion completed")
         else:
             # if table is not there, then it will say table does not exist
             # create table first or give table name that exists to append data
@@ -56,10 +56,10 @@ def replace(json_data: dict, conn: dict, dataframe,counter: int) -> bool:
                 logging.info(" table replace finished, started inserting data into "
                  "%s table", json_data["task"]["target"]["table_name"])
                 dataframe.to_sql(json_data["task"]["target"]["table_name"], conn, index = False, if_exists = "append")
-                logging.info("postgres ingestion completed")
+                logging.info("mysql ingestion completed")
             else:
                 dataframe.to_sql(json_data["task"]["target"]["table_name"], conn, index = False, if_exists = "append")
-                logging.info("postgres ingestion completed")
+                logging.info("mysql ingestion completed")
         else:
             # if table is not there, then it will say table does not exist
             logging.error('%s does not exists, give correct table name',json_data["task"]["target"]["table_name"])
@@ -78,7 +78,7 @@ def truncate(json_data: dict, conn: dict) -> bool:
             truncate_query = sqlalchemy.text(f'TRUNCATE TABLE {json_data["task"]["target"]["schema"]}.'
             f'{json_data["task"]["target"]["table_name"]}')
             conn.execution_options(autocommit=True).execute(truncate_query)
-            logging.info("postgres truncating table completed")
+            logging.info("mysql truncating table completed")
             sys.exit()
             # logging.info("truncating table finished, started inserting data into
             #  %s table", json_data["table"])
@@ -103,7 +103,7 @@ def drop(json_data: dict, conn: dict) -> bool:
             drop_query = sqlalchemy.text(f'DROP TABLE {json_data["task"]["target"]["schema"]}.'
             f'{json_data["task"]["target"]["table_name"]}')
             conn.execution_options(autocommit=True).execute(drop_query)
-            logging.info("postgres dropping table completed")
+            logging.info("mysql dropping table completed")
             sys.exit()
             # logging.info(" table drop finished, started inserting data into
             #  %s table", json_data["table"])
@@ -149,7 +149,7 @@ def write(json_data: dict, datafram, counter: int) -> bool:
         conn2.dispose()
         return True
     except Exception as error:
-        logging.exception("ingest_data_to_postgres() is %s", str(error))
-        raise Exception("ingest_data_to_postgres(): " + str(error)) from error
+        logging.exception("ingest_data_to_mysql() is %s", str(error))
+        raise Exception("ingest_data_to_mysql(): " + str(error)) from error
 
 
