@@ -7,7 +7,7 @@
     "task_type": "ingestion",
     "active": "Y",
     "execution_order": "",
-    "config_file": ""D:\\config\\config.ini",
+    "config_file": "D:\\config\\config.ini",
     "source": {	
 		"source_type": "postgres_read",
 		"load_method": "",
