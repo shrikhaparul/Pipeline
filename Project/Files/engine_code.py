@@ -47,7 +47,7 @@ def download_files(Project_id,Task_id,path):
 #     y= mapping.decoded_content.decode()
     
 #     data = json.loads(y)
-    mapping_file='curl -o '+path+mapping.json +' '\
+    mapping_file='curl -o '+path+'mapping.json '\
     'https://raw.githubusercontent.com/shrikhaparul/test/main/Project/Files/mapping.json'
 
     subprocess.call(mapping_file)
