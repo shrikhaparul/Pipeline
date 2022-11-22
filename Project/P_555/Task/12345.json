@@ -16,7 +16,7 @@
 		"chunk_size": 1000,
 		"file_format": "",
 		"connection_name": "postgresql_1",
-		"table_name": "sales_demo",
+		"table_name": "sales1",
 		"schema": "public",
 		"query": "",
 		"source_file_path": "D:\\config\\postgresql_1.ini",
