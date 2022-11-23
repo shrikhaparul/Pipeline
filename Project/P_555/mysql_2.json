@@ -1,0 +1,9 @@
+{
+    "mysql_2": {
+      "host": "127.0.0.1",
+      "user": "root",
+      "password": "abcdef",
+      "database": "njdot",
+      "port": "3306"
+    }
+  }
