@@ -18,6 +18,7 @@
             "connection_name":"",
             "schema": "",
             "query": "",
+            "connection_file_path": "",
             "file_format": "",
             "delimiter":",",
             "skip_header":" ",
@@ -28,15 +29,17 @@
             "select_columns": " ",
             "chunk_size":1000,			
             "quoting": "",		
-            "encoding": " "
+            "encoding": "utf-8",
+            "sheet_name":0,
+            "updated_rejected_records": ""
         },
         "target": {	
             "target_type": "postgres",
             "load_type": "",
             "batch_size": "",
-            "connection_file_path": "D:\\Ingestion_Kart\\Pipeline\\Project\\P_555\\postgresql_1.json",
+            "connection_file_path": "D:\\test\\postgresql_1.json",
             "connection_name": "postgresql_1",
-            "table_name": "tblPatient1",
+            "table_name": "tera",
             "schema": "public",
             "file_delimiter": "",
             "file_format": "",
@@ -44,7 +47,12 @@
             "encoding": " ",
             "operation":"create"
         },
-        "data_quailty": [{
+        "data_quality_files":{
+            "acptd_and_rjctd_file_path":"D:\\test\\",
+            "qc_report_file_path":"D:\\test\\"
+        },
+        "data_quality": [
+          {
             "s.no": "1",
             "check": "column_values_to_be_unique",
             "parameters": "ORDERNUMBER",
@@ -62,8 +70,8 @@
           "ignore_bad_records": "Y",
           "threshold_bad_records": 20,
           "type": "post_check"
-            }]
-        ,
+            }
+        ],
         "on_failure": ""
       }
     }
