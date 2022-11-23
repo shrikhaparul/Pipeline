@@ -12,8 +12,8 @@
     "csv_read":"csv_read_file.py",
     "postgres_write":"postgres_write_file.py",
     "postgres_read": "postgres_read_file.py",
-    "mysql_read": "mysql_read_file.py",
-    "mysql_write": "mysql_write_file.py"
+    "mysql_read": "mysql_read.py",
+    "mysql_write": "mysql_write.py"
     
     
  }}
