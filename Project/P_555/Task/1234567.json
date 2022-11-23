@@ -37,7 +37,7 @@
             "target_type": "postgres",
             "load_type": "",
             "batch_size": "",
-            "connection_file_path": "D:\\test\\Ingestion_Kart\\Pipeline\\Project\\P_555\\postgresql_1.json",
+            "connection_file_path": "D:\\test\\test\\Ingestion_Kart\\Pipeline\\Project\\P_555\\postgresql_1.json",
             "connection_name": "postgresql_1",
             "table_name": "tera",
             "schema": "public",
