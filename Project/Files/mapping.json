@@ -5,13 +5,10 @@
    , 
 
 "mapping":{
-    "s3_ingestion":"s3_ingestion.py" ,
-    "oracle_ingestion":"oracle_ingestion.py",
-    "column_values_to_be_between":"qc_check_1.py",
-    "csv_ingestion":"csv_ingestion.py",
+    
     "csvfile":"csv_read.py",
-    "postgres":"postgres_write.py",
-    "postgres_read": "postgres_read_file.py",
+    "postgres_write":"postgres_write.py",
+    "postgres_read": "postgres_read.py",
     "mysql_read": "mysql_read.py",
     "mysql_write": "mysql_write.py"
     
