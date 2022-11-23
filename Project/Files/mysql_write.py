@@ -8,7 +8,7 @@ def establish_conn(json_data: dict, json_section: str) -> bool:
     """establishes connection for the mysql database
        you pass it through the json"""
     try:
-        connection_details = get_config_section(json_data["task"]["config_file"],\
+        connection_details = get_config_section(json_data["task"][json_section]["connection_file_path"],\
         json_data["task"][json_section]["connection_name"])
         conn1 = sqlalchemy.create_engine(f'mysql://{connection_details["user"]}'
         f':{connection_details["password"].replace("@", "%40")}@{connection_details["host"]}'
