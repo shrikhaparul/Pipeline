@@ -1,11 +1,12 @@
 """ importing modules """
 import json
 import logging
-import datetime
 import sqlalchemy
 import pandas as pd
-
+import os
 import subprocess
+import logging
+from datetime import datetime
 
 def download_files(Project_id,Task_id,path):
     x=path+Task_id+".json"
@@ -89,7 +90,18 @@ def engine_main(Project_id,Task_id,path):
     from utility import initiate_logging
     import definitions_qc as dq
     ## logging module
-    initiate_logging('engine_log', r""+path)
+    run_id='run_id_' + datetime.now().strftime("%Y%m%d%H%M%S%f") 
+    # new_path=path+'\\'
+    os.chdir(path)
+    if not os.path.exists('Run_id'):
+        os.makedirs('Run_id')
+    new_path= path  +'Run_id\\'+run_id+'\\'
+    os.chdir(path  +'Run_id\\')
+    os.makedirs(run_id)
+    initiate_logging(run_id,r""+new_path)
+    # print(new_path)
+    logging.info('execution started')
+    # initiate_logging('engine_log', r""+path)
     logging.info('logging initiated')
     # reading the json file
     try:
