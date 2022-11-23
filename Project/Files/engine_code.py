@@ -111,11 +111,11 @@ def engine_main(Project_id,Task_id,path):
     elif json_data["task"]["source"]["source_type"] == "postgres_read":
         from postgres_read_file import read
     elif json_data["task"]["source"]["source_type"] == "mysql_read":
-        from mysql_read_file import read
+        from mysql_read import read
     if json_data["task"]["target"]["target_type"] == "postgres_write":
         from postgres_write_file import write
     elif json_data["task"]["target"]["target_type"] == "mysql_write":
-        from mysql_write_file import write
+        from mysql_write import write
 
 
     # main script execution starts here
