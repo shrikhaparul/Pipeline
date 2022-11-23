@@ -12,7 +12,7 @@ def download_files(Project_id,Task_id,path):
     x=path+Task_id+".json"
     print(x)
     with open(
-        r""+path+Task_id+".json","r", encoding='utf-8') as jsonfile:
+        r""+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+Task_id+".json","r", encoding='utf-8') as jsonfile:
         config_json = json.load(jsonfile)
     source_conn_file = config_json['task']['source']['connection_name']
     target_conn_file = config_json['task']['target']['connection_name']
@@ -25,11 +25,11 @@ def download_files(Project_id,Task_id,path):
     
     
     #curl command for downloading the files
-    src_ini = 'curl -o D:\\Ingestion_Kart\\Pipeline\\Project\\P_555\\'+source_conn_file+'.json '\
+    src_ini = 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\'+source_conn_file+'.json '\
     'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/'+Project_id+'/'+source_conn_file+'.json'
-    trgt_ini = 'curl -o D:\\Ingestion_Kart\\Pipeline\\Project\\P_555\\'+target_conn_file+'.json '\
+    trgt_ini = 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\'+target_conn_file+'.json '\
     'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/'+Project_id+'/'+target_conn_file+'.json'
-    config_ini= 'curl -o D:\\Ingestion_Kart\\Pipeline\\Project\\P_555\\config.ini '\
+    config_ini= 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\'+'config.ini '\
     'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/'+Project_id+'/'+'config.ini'
     
     subprocess.call(src_ini)
@@ -52,12 +52,12 @@ def download_files(Project_id,Task_id,path):
     
 #     data = json.loads(y)
   
-    mapping_file='curl -o '+path+'mapping.json '\
+    mapping_file='curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+'mapping.json '\
     'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/mapping.json'
 
     subprocess.call(mapping_file)
 
-    with open(r""+path+'mapping.json',"r", encoding='utf-8') as mapjson:
+    with open(r""+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+'mapping.json',"r", encoding='utf-8') as mapjson:
         config_new_json = json.load(mapjson)
     
     
@@ -68,13 +68,13 @@ def download_files(Project_id,Task_id,path):
     print(QC_check_file,Utility_file)
     
     #curl command for downloading the files
-    src_py = 'curl -o '+path+source_file_name+' '\
+    src_py = 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+source_file_name+' '\
     'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+source_file_name
-    trgt_py = 'curl -o '+path+target_file_name+' '\
+    trgt_py = 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+target_file_name+' '\
     'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+target_file_name
-    QC_py= 'curl -o '+path+QC_check_file+' '\
+    QC_py= 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+QC_check_file+' '\
     'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+QC_check_file
-    Utility_py= 'curl -o '+path+Utility_file+' '\
+    Utility_py= 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+Utility_file+' '\
     'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+Utility_file
     
     #calling the subprocess to run curl command function
