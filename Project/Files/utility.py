@@ -1,6 +1,7 @@
 """script for general purpose methods like log, audit, connections etc..."""
-import configparser
+# import configparser
 import logging
+import json
 
 # custom log function for framework
 def initiate_logging(project: str, log_loc: str) -> bool:
@@ -24,18 +25,34 @@ def initiate_logging(project: str, log_loc: str) -> bool:
         raise ex
 
 # reading the config.ini file and passing the connection details as dictionary
-def get_config_section(config_path: str, conn_nm: str) -> dict:
-    """reads the cofig file and returns connection details as dict for
+# def get_config_section(config_path: str, conn_nm: str) -> dict:
+#     """reads the cofig file and returns connection details as dict for
+#        connection name you pass it through the json
+#     """
+#     try:
+#         config = configparser.ConfigParser()
+#         config.read(config_path)
+#         if not config.has_section(conn_nm):
+#             logging.exception("Invalid Connection %s.", str(conn_nm))
+#             raise Exception(f"Invalid Connection {conn_nm}")
+#         # print("connection established")
+#         return dict(config.items(conn_nm))
+#     except Exception as error:
+#         logging.exception("get_config_section() is %s.", str(error))
+#         raise Exception("get_config_section(): " + str(error)) from error
+
+# reading the config.ini file and passing the connection details as dictionary
+def get_config_section(config_path:str, conn_nm: str) -> dict:
+    """reads the connection file and returns connection details as dict for
        connection name you pass it through the json
     """
     try:
-        config = configparser.ConfigParser()
-        config.read(config_path)
-        if not config.has_section(conn_nm):
-            logging.exception("Invalid Connection %s.", str(conn_nm))
-            raise Exception(f"Invalid Connection {conn_nm}")
-        # print("connection established")
-        return dict(config.items(conn_nm))
+        with open(config_path,'r', encoding='utf-8') as jsonfile:
+            logging.info("fetching connection details")
+            json_data = json.load(jsonfile)
+            logging.info("reading connection details completed")
+            # print("connection established")
+            return dict(json_data[conn_nm].items())
     except Exception as error:
         logging.exception("get_config_section() is %s.", str(error))
         raise Exception("get_config_section(): " + str(error)) from error
