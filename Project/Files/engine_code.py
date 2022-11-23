@@ -118,13 +118,13 @@ def engine_main(Project_id,Task_id,path):
 
 
     #ingestion code
-    if json_data["task"]["source"]["source_type"] == "csv_read":
+    if json_data["task"]["source"]["source_type"] == "csvfile":
         from csv_read import read
     elif json_data["task"]["source"]["source_type"] == "postgres_read":
         from postgres_read_file import read
     elif json_data["task"]["source"]["source_type"] == "mysql_read":
         from mysql_read import read
-    if json_data["task"]["target"]["target_type"] == "postgres_write":
+    if json_data["task"]["target"]["target_type"] == "postgres":
         from postgres_write import write
     elif json_data["task"]["target"]["target_type"] == "mysql_write":
         from mysql_write import write
