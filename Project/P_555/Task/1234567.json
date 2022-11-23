@@ -15,6 +15,7 @@
             "load_method": "",
             "extract_type": "",
             "table_name": "",
+            "connection_name":"",
             "schema": "",
             "query": "",
             "file_format": "",
