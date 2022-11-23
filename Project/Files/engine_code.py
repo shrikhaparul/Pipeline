@@ -112,8 +112,8 @@ def engine_main(Project_id,Task_id,path):
         logging.exception("error in reading json %s.", str(error))
         raise Exception("error in reading json: " + str(error)) from error
 
-    # Precheck code
-    pre_check = dq.qc_pre_check(json_data)
+    # # Precheck code
+    # pre_check = dq.qc_pre_check(json_data)
 
 
     #ingestion code
@@ -123,7 +123,7 @@ def engine_main(Project_id,Task_id,path):
         from postgres_read_file import read
     elif json_data["task"]["source"]["source_type"] == "mysql_read":
         from mysql_read import read
-    if json_data["task"]["target"]["target_type"] == "postgres":
+    if json_data["task"]["target"]["target_type"] == "postgres_write":
         from postgres_write import write
     elif json_data["task"]["target"]["target_type"] == "mysql_write":
         from mysql_write import write
@@ -144,10 +144,10 @@ def engine_main(Project_id,Task_id,path):
         logging.info("only ingestion available currently")
 
 
-    #post check code
-    post_check = dq.qc_post_check(json_data)
+    # #post check code
+    # post_check = dq.qc_post_check(json_data)
 
-    #qc report generation
-    qc_report = dq.qc_report(pre_check, post_check, json_data)
-    logging.info(qc_report)
+    # #qc report generation
+    # qc_report = dq.qc_report(pre_check, post_check, json_data)
+    # logging.info(qc_report)
 
