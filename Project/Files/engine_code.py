@@ -52,7 +52,7 @@ def download_files(Project_id,Task_id,path):
 #     data = json.loads(y)
   
     mapping_file='curl -o '+path+'mapping.json '\
-    'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/mapping.json'
+    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/mapping.json'
 
     subprocess.call(mapping_file)
 
