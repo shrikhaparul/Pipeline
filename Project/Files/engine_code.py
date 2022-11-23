@@ -62,7 +62,6 @@ def download_files(Project_id,Task_id,path):
     
     
     source_file_name=(config_new_json["mapping"][source_type])
-    
     target_file_name=(config_new_json["mapping"][target_type])
     QC_check_file=config_new_json["default"]["QC_checks"]
     Utility_file=config_new_json["default"]["Utility"]
@@ -113,8 +112,8 @@ def engine_main(Project_id,Task_id,path):
         logging.exception("error in reading json %s.", str(error))
         raise Exception("error in reading json: " + str(error)) from error
 
-    # # Precheck code
-    # pre_check = dq.qc_pre_check(json_data)
+    # Precheck code
+    pre_check = dq.qc_pre_check(json_data)
 
 
     #ingestion code
@@ -145,10 +144,10 @@ def engine_main(Project_id,Task_id,path):
         logging.info("only ingestion available currently")
 
 
-    # #post check code
-    # post_check = dq.qc_post_check(json_data)
+    #post check code
+    post_check = dq.qc_post_check(json_data)
 
-    # #qc report generation
-    # qc_report = dq.qc_report(pre_check, post_check)
-    # logging.info(qc_report)
+    #qc report generation
+    qc_report = dq.qc_report(pre_check, post_check, json_data)
+    logging.info(qc_report)
 
