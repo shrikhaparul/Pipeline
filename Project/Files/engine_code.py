@@ -25,10 +25,10 @@ def download_files(Project_id,Task_id,path):
     
     
     #curl command for downloading the files
-    src_ini = 'curl -o D:\\Ingestion_Kart\\Pipeline\\Project\\P_555\\'+source_conn_file+'.ini '\
-    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/'+Project_id+'/'+source_conn_file+'.ini'
-    trgt_ini = 'curl -o D:\\Ingestion_Kart\\Pipeline\\Project\\P_555\\'+target_conn_file+'.ini '\
-    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/'+Project_id+'/'+target_conn_file+'.ini'
+    src_ini = 'curl -o D:\\Ingestion_Kart\\Pipeline\\Project\\P_555\\'+source_conn_file+'.json '\
+    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/'+Project_id+'/'+source_conn_file+'.json'
+    trgt_ini = 'curl -o D:\\Ingestion_Kart\\Pipeline\\Project\\P_555\\'+target_conn_file+'.json '\
+    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/'+Project_id+'/'+target_conn_file+'.json'
     config_ini= 'curl -o D:\\Ingestion_Kart\\Pipeline\\Project\\P_555\\config.ini '\
     'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/'+Project_id+'/'+'config.ini'
     
