@@ -113,41 +113,91 @@ def engine_main(Project_id,Task_id,path):
         raise Exception("error in reading json: " + str(error)) from error
 
     # Precheck code
-    pre_check = dq.qc_pre_check(json_data)
+    if json_data["task"]["source"]["source_type"] == 'csv_read' or json_data["task"]["source"]["source_type"] == 'postgres_read' or json_data["task"]["source"]["source_type"] == 'mysql_read':
+       pre_check = dq.qc_pre_check(json_data)
 
-
-    #ingestion code
+    
+    #file conversion code and ingestion code
     if json_data["task"]["source"]["source_type"] == "csv_read":
         from csv_read import read
     elif json_data["task"]["source"]["source_type"] == "postgres_read":
         from postgres_read_file import read
     elif json_data["task"]["source"]["source_type"] == "mysql_read":
         from mysql_read import read
+    elif json_data["task"]["source"]["source_type"] == "csvfile_read":
+        from csvfile_read import read
+    elif json_data["task"]["source"]["source_type"] == "parquetfile_read":
+        from parquet_read import read
+    elif json_data["task"]["source"]["source_type"] == "excelfile_read":
+        from excel_read import read
+    elif json_data["task"]["source"]["source_type"] == "jsonfile_read":
+        from json_read import read
+    elif json_data["task"]["source"]["source_type"] == "xmlfile_read":
+        from xml_read import read
+    elif json_data["task"]["source"]["source_type"] == "textfile_read":
+        from text_read import read
+
+
     if json_data["task"]["target"]["target_type"] == "postgres_write":
         from postgres_write import write
     elif json_data["task"]["target"]["target_type"] == "mysql_write":
         from mysql_write import write
+    elif json_data["task"]["target"]["target_type"] == "parquetfile_write":
+        from parquet_write import write
+    elif json_data["task"]["target"]["target_type"] == "csvfile_write":
+        from csvfile_write import write
+    elif json_data["task"]["target"]["target_type"] == "excelfile_write":
+        from excel_write import write
+    elif json_data["task"]["target"]["target_type"] == "jsonfile_write":
+        from json_write import write
+    elif json_data["task"]["target"]["target_type"] == "xmlfile_write":
+        from xml_write import write
+    elif json_data["task"]["target"]["target_type"] == "textfile_write":
+        from text_write import write
 
 
-    # main script execution starts here
-    if json_data["task"]["task_type"]=="ingestion":
-        logging.info("entered  in to ingestion")
-        
+    #main script execution starts here
+    if json_data["task"]["source"]["source_type"] == "csv_read" or \
+        json_data["task"]["source"]["source_type"] == "postgres_read" or \
+        json_data["task"]["source"]["source_type"] == "mysql_read" or  json_data["task"]["source"]["source_type"] == "parquetfile_read"    :
         df=read(json_data)
         # logging.info(df.__next__())
         COUNTER=0
         for i in df :
             # logging.info(i)
             COUNTER+=1
-            write(json_data, i, COUNTER)
+            write(json_data, i,COUNTER)
+    elif json_data["task"]["source"]["source_type"] == "csvfile_read" or \
+     json_data["task"]["source"]["source_type"] == "jsonfile_read" or \
+     json_data["task"]["source"]["source_type"] == "xmlfile_read" :
+        df=read(json_data)
+        # logging.info(df.__next__())
+        COUNTER=0
+        for i in df :
+            # logging.info(i)
+            COUNTER+=1
+            write(json_data, i)
+
+
+    # if json_data["task"]["task_type"]=="ingestion":
+    #     logging.info("entered  in to ingestion")
+        
+    #     df=read(json_data)
+    #     # logging.info(df.__next__())
+    #     COUNTER=0
+    #     for i in df :
+    #         # logging.info(i)
+    #         COUNTER+=1
+    #         write(json_data, i, COUNTER)
+    #     logging.info(" ingestion  done")
     else:
         logging.info("only ingestion available currently")
 
 
-    #post check code
-    post_check = dq.qc_post_check(json_data)
+    # #post check code
+    # post_check = dq.qc_post_check(json_data)
 
-    #qc report generation
-    qc_report = dq.qc_report(pre_check, post_check, json_data)
-    logging.info(qc_report)
+    # #qc report generation
+    # qc_report = dq.qc_report(pre_check, post_check, json_data)
+    # logging.info(qc_report)
 
