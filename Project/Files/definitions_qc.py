@@ -137,7 +137,7 @@ ing_loc, ing_encoding, ing_sheetnum, conn_str, dq_output_loc=None):
         row_val = control_table_df.index.values.tolist()
         pool = ThreadPool(multiprocessing.cpu_count())
         #Creating conditions for different file formats
-        if ing_type == 'csvfile':
+        if ing_type == 'csv_read':
             ge_df = ge.read_csv(ing_loc, encoding=ing_encoding)
             shape_of_records1 = ge_df.shape
             logging.info('Reading csv file started at %s', ing_loc)
