@@ -5,15 +5,24 @@
    , 
 
 "mapping":{
-    "s3_ingestion":"s3_ingestion.py" ,
-    "oracle_ingestion":"oracle_ingestion.py",
-    "column_values_to_be_between":"qc_check_1.py",
-    "csv_ingestion":"csv_ingestion.py",
+    
     "csv_read":"csv_read.py",
+    "csv_write":"csv_write.py",
     "postgres_write":"postgres_write.py",
     "postgres_read": "postgres_read.py",
     "mysql_read": "mysql_read.py",
-    "mysql_write": "mysql_write.py"
+    "mysql_write": "mysql_write.py",
+    "csvfile_read":"csvfile_read.py",
+    "csvfile_write":"csvfile_write.py",
+    "excelfile_read": "excel_read.py",
+    "excelfile_write": "excel_write.py",
+    "parquetfile_read": "parquet_read.py",
+    "parquetfile_write":"parquet_write.py",
+    "jsonfile_read":"json_read.py",
+    "jsonfile_write":"json_write.py",
+    "xmlfile_read":"xml_read",
+    "xmlfile_write":"xml_write"
+
     
     
  }}
