@@ -34,7 +34,7 @@
             "updated_rejected_records": ""
         },
         "target": {	
-            "target_type": "postgres_read",
+            "target_type": "postgres_write",
             "load_type": "",
             "batch_size": "",
             "connection_file_path": "D:\\test\\test\\Ingestion_Kart\\Pipeline\\Project\\P_555\\postgresql_1.json",
