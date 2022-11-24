@@ -137,7 +137,7 @@ ing_loc, ing_encoding, ing_sheetnum, conn_str, dq_output_loc=None):
         row_val = control_table_df.index.values.tolist()
         pool = ThreadPool(multiprocessing.cpu_count())
         #Creating conditions for different file formats
-        if ing_type == 'csv_read':
+        if ing_type == 'csvfile':
             ge_df = ge.read_csv(ing_loc, encoding=ing_encoding)
             shape_of_records1 = ge_df.shape
             logging.info('Reading csv file started at %s', ing_loc)
@@ -168,7 +168,7 @@ ing_loc, ing_encoding, ing_sheetnum, conn_str, dq_output_loc=None):
             logging.info('Reading xlsx file started at %s', ing_loc)
             logging.info(
                 'Total number of records present in above path are %s', shape_of_records5)
-        elif ing_type == 'postgres_read' or ing_type == 'postgres_write':
+        elif ing_type == 'postgres':
             conn = sqlalchemy.create_engine(f'postgresql://{conn_str["user"]}'
                 f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}')
             pd_df = pd.read_sql(f'select * from {ing_loc}', conn)
