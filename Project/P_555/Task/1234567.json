@@ -9,7 +9,7 @@
         "execution_order": "",
         "config_file": "",
         "source": {	
-            "source_type": "csvfile",
+            "source_type": "csv_read",
             "source_file_path": "C:\\Users\\ParulShrikhande\\Desktop\\dq_checks_file\\",
             "source_file_name": "sales_data",
             "load_method": "",
@@ -34,7 +34,7 @@
             "updated_rejected_records": ""
         },
         "target": {	
-            "target_type": "postgres",
+            "target_type": "postgres_read",
             "load_type": "",
             "batch_size": "",
             "connection_file_path": "D:\\test\\test\\Ingestion_Kart\\Pipeline\\Project\\P_555\\postgresql_1.json",
