@@ -1,5 +1,4 @@
 """ importing modules """
-from configparser import ConfigParser
 from datetime import datetime
 import multiprocessing
 from multiprocessing.pool import ThreadPool
@@ -122,7 +121,7 @@ def run_checks_in_parallel(index, cols, control_table_df, checks_mapping_df, ge_
 
 
 def qc_check(control_table_df, checks_mapping_df, check_type, project_id, ing_type,
-ing_loc, ing_encoding, ing_sheetnum, conn_str, dq_output_loc=None):
+ing_loc, src_loc, tgt_loc, ing_encoding, ing_sheetnum, conn_str, dq_output_loc=None):
     """Extaracting qc_check related details"""
     #logging.info("entered into qc_check function")
     try:
@@ -143,36 +142,75 @@ ing_loc, ing_encoding, ing_sheetnum, conn_str, dq_output_loc=None):
             logging.info('Reading csv file started at %s', ing_loc)
             logging.info(
             'Total number of records present in above path are %s', shape_of_records1)
+        elif ing_type == 'csv_write':
+            ge_df = ge.read_csv(tgt_loc, encoding=ing_encoding)
+            shape_of_records2 = ge_df.shape
+            logging.info('Reading csv file started at %s', tgt_loc)
+            logging.info(
+            'Total number of records present in above path are %s', shape_of_records2)
         elif ing_type == 'parquet':
             ge_df = ge.read_parquet(ing_loc)
-            shape_of_records2 = ge_df.shape
+            shape_of_records3 = ge_df.shape
             logging.info('Reading parquet file started at %s', ing_loc)
             logging.info(
-                'Total number of records present in above path are %s', shape_of_records2)
+                'Total number of records present in above path are %s', shape_of_records3)
         elif ing_type == 'json':
             ge_df = ge.read_json(ing_loc, encoding=ing_encoding)
-            shape_of_records3 = ge_df.shape
+            shape_of_records4 = ge_df.shape
             logging.info('Reading json file started at %s', ing_loc)
             logging.info(
-                'Total number of records present in above path are %s', shape_of_records3)
+                'Total number of records present in above path are %s', shape_of_records4)
         elif ing_type == 'excel':
             ge_df = ge.read_excel(ing_loc, sheet_name=ing_sheetnum)
-            shape_of_records4 = ge_df.shape
+            shape_of_records5 = ge_df.shape
             logging.info('Reading excel file started at %s', ing_loc)
             logging.info(
-                'Total number of records present in above path are %s', shape_of_records4)
+                'Total number of records present in above path are %s', shape_of_records5)
         elif ing_type == 'xml':
             pd_df = pd.read_xml(ing_loc)
             ge_df = ge.from_pandas(pd_df)
-            shape_of_records5 = ge_df.shape
-            logging.info('Reading xlsx file started at %s', ing_loc)
+            shape_of_records6 = ge_df.shape
+            logging.info('Reading xml file started at %s', ing_loc)
             logging.info(
-                'Total number of records present in above path are %s', shape_of_records5)
-        elif ing_type == 'postgres_read' or ing_type == 'postgres_write':
+                'Total number of records present in above path are %s', shape_of_records6)
+        elif ing_type == 'postgres_read': 
+            conn = sqlalchemy.create_engine(f'postgresql://{conn_str["user"]}'
+                f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}')
+            pd_df = pd.read_sql(f'select * from {src_loc}', conn)
+            ge_df = ge.from_pandas(pd_df)
+            shape_of_records7 = ge_df.shape
+            logging.info('Reading postgres db started at %s table', src_loc)
+            logging.info(
+                'Total number of records present in above table are %s', shape_of_records7)
+        elif ing_type == 'postgres_write': 
             conn = sqlalchemy.create_engine(f'postgresql://{conn_str["user"]}'
                 f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}')
             pd_df = pd.read_sql(f'select * from {ing_loc}', conn)
             ge_df = ge.from_pandas(pd_df)
+            shape_of_records8 = ge_df.shape
+            logging.info('Reading postgres db started at %s table', ing_loc)
+            logging.info(
+                'Total number of records present in above table are %s', shape_of_records8)
+        elif ing_type == 'mysql_read':
+            conn = sqlalchemy.create_engine(f'mysql://{conn_str["user"]}'
+            f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}'
+            f':{int(conn_str["port"])}/{conn_str["database"]}', encoding='utf-8')
+            pd_df = pd.read_sql(f'select * from {src_loc}', conn)
+            ge_df = ge.from_pandas(pd_df)
+            shape_of_records9 = ge_df.shape
+            logging.info('Reading mysql db started at %s table', src_loc)
+            logging.info(
+                'Total number of records present in above table are %s', shape_of_records9)
+        elif ing_type == 'mysql_write':
+            conn = sqlalchemy.create_engine(f'mysql://{conn_str["user"]}'
+            f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}'
+            f':{int(conn_str["port"])}/{conn_str["database"]}', encoding='utf-8')
+            pd_df = pd.read_sql(f'select * from {ing_loc}', conn)
+            ge_df = ge.from_pandas(pd_df)
+            shape_of_records10 = ge_df.shape
+            logging.info('Reading mysql db started at %s table', ing_loc)
+            logging.info(
+                'Total number of records present in above table are %s', shape_of_records10)
         #else:
             #raise Exception("Not a valid ingestion type")
         datasets = pool.map(
@@ -232,14 +270,14 @@ def qc_pre_check(config_json_file):
         control_table = pd.DataFrame(config_json_file['task']['data_quality'])
         #Creating connection to postgresql by using sqlalchemy
         conn_str = get_config_section(
-            config_json_file['task']['target']['connection_file_path'], 
-            config_json_file['task']['target']['connection_name'])
+            config_json_file['task']['config_file'], 
+            config_json_file['task']['config_conn_name'])
         conn = sqlalchemy.create_engine(f'postgresql://{conn_str["user"]}'
                 f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}')
         #Reading postgresql checks_mapping table
         checks_mapping = pd.read_sql("select * from checks_mapping", conn)
         src_conn_str =  get_config_section(
-            config_json_file['task']['target']['connection_file_path'],
+            config_json_file['task']['source']['connection_file_path'],
             config_json_file[
                 'task']['source']['connection_name']) if config_json_file[
                 'task']['source']['connection_name'] != '' else ''
@@ -253,8 +291,11 @@ def qc_pre_check(config_json_file):
             pre_check_result = qc_check(
                 control_table, checks_mapping, 'pre_check',config_json_file[
                     'project_id'], config_json_file['task']['source']['source_type'],
-                     config_json_file['task']['source']['source_file_path']+config_json_file[
-                        'task']['source']['source_file_name']+'.csv',
+                    config_json_file['task']['source']['source_file_path']+config_json_file[
+                        'task']['source']['source_file_name']+'.csv',config_json_file[
+                            'task']['source']['table_name'],
+                    config_json_file['task']['target']['connection_file_path']+config_json_file[
+                            'task']['target']['table_name']+'.csv',
                     config_json_file['task']['source']['encoding'],
                     config_json_file['task']['source']['sheet_name'],
                     src_conn_str, output_loc)
@@ -287,8 +328,8 @@ def qc_post_check(config_json_file):
         control_table = pd.DataFrame(config_json_file['task']['data_quality'])
         #Creating connection to postgresql by using sqlalchemy
         conn_str = get_config_section(
-            config_json_file['task']['target']['connection_file_path'], 
-            config_json_file['task']['target']['connection_name'])
+            config_json_file['task']['config_file'], 
+            config_json_file['task']['config_conn_name'])
         conn = sqlalchemy.create_engine(f'postgresql://{conn_str["user"]}'
                 f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}')
         #Reading postgresql checks_mapping table
@@ -307,8 +348,11 @@ def qc_post_check(config_json_file):
             post_check_result = qc_check(
                 control_table, checks_mapping, 'post_check', config_json_file['project_id'],
                 config_json_file['task']['target']['target_type'], config_json_file[
-                        'task']['target']['table_name'],config_json_file[
-                        'task']['source']['encoding'], config_json_file[
+                        'task']['target']['table_name'], config_json_file['task'][
+                            'source']['table_name'],config_json_file['task']['target'][
+                                'connection_file_path']+config_json_file[
+                            'task']['target']['table_name']+'.csv', config_json_file[
+                        'task']['target']['encoding'], config_json_file[
                         'task']['source']['sheet_name'], tgt_conn_str, output_loc)
         elif config_json_file['task']['source']['updated_rejected_records'] == 'Y':
             list_of_files = glob.glob(

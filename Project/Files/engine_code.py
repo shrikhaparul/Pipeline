@@ -121,7 +121,7 @@ def engine_main(Project_id,Task_id,path):
     if json_data["task"]["source"]["source_type"] == "csv_read":
         from csv_read import read
     elif json_data["task"]["source"]["source_type"] == "postgres_read":
-        from postgres_read_file import read
+        from postgres_read import read
     elif json_data["task"]["source"]["source_type"] == "mysql_read":
         from mysql_read import read
     elif json_data["task"]["source"]["source_type"] == "csvfile_read":
@@ -144,6 +144,8 @@ def engine_main(Project_id,Task_id,path):
         from mysql_write import write
     elif json_data["task"]["target"]["target_type"] == "parquetfile_write":
         from parquet_write import write
+    elif json_data["task"]["target"]["target_type"] == "csv_write":
+        from csv_write import write
     elif json_data["task"]["target"]["target_type"] == "csvfile_write":
         from csvfile_write import write
     elif json_data["task"]["target"]["target_type"] == "excelfile_write":
@@ -156,7 +158,7 @@ def engine_main(Project_id,Task_id,path):
         from text_write import write
 
 
-    #main script execution starts here
+    main script execution starts here
     if json_data["task"]["source"]["source_type"] == "csv_read" or \
         json_data["task"]["source"]["source_type"] == "postgres_read" or \
         json_data["task"]["source"]["source_type"] == "mysql_read" or  json_data["task"]["source"]["source_type"] == "parquetfile_read"    :
@@ -193,11 +195,12 @@ def engine_main(Project_id,Task_id,path):
     else:
         logging.info("only ingestion available currently")
 
+    if json_data["task"]["target"]["target_type"] == 'csv_write' or json_data["task"]["target"]["target_type"] == 'postgres_write' or json_data["task"]["target"]["target_type"] == 'mysql_write':
+     
+        #post check code
+        post_check = dq.qc_post_check(json_data)
 
-    # #post check code
-    # post_check = dq.qc_post_check(json_data)
-
-    # #qc report generation
-    # qc_report = dq.qc_report(pre_check, post_check, json_data)
-    # logging.info(qc_report)
+        #qc report generation
+        qc_report = dq.qc_report(pre_check, post_check, json_data)
+        logging.info(qc_report)
 
