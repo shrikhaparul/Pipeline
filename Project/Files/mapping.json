@@ -22,8 +22,8 @@
     "jsonfile_write":"json_write.py",
     "xmlfile_read":"xml_read.py",
     "xmlfile_write":"xml_write.py",
-    "textfile_read":"text_read",
-    "textfile_write":"text_write"
+    "textfile_read":"text_read.py",
+    "textfile_write":"text_write.py"
 
     
     
