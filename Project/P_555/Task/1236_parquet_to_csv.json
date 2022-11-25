@@ -35,7 +35,8 @@
             "file_delimiter": ",",
             "target_file_path": "D:\\New folder\\sales_test_15.csv",
             "encoding": "utf-8",
-            "header": "False"
+            "header": "False",
+            "connection_name":"",
         },
         "data_quailty": {
                 "dq_id": "",
