@@ -69,13 +69,13 @@ def download_files(Project_id,Task_id,path):
     
     #curl command for downloading the files
     src_py = 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+source_file_name+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+source_file_name
+    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/'+source_file_name
     trgt_py = 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+target_file_name+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+target_file_name
+    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/'+target_file_name
     QC_py= 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+QC_check_file+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+QC_check_file
+    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/'+QC_check_file
     Utility_py= 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+Utility_file+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+Utility_file
+    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/'+Utility_file
     
     #calling the subprocess to run curl command function
     subprocess.call(src_py)
