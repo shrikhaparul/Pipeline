@@ -6,7 +6,7 @@ def write(json_data: dict,datafram, counter) -> bool:
     try:
         logging.info("writing data to csv file")
         if counter ==1:
-            datafram.to_csv(json_data["task"]["target"]["target_file_path"]+json_data["task"]["target"]["target_file_name"]+'.csv',
+            datafram.to_csv(json_data["task"]["target"]["connection_file_path"]+json_data["task"]["target"]["table_name"]+'.csv',
             sep=json_data["task"]["target"]["file_delimiter"], header=True,
             index=False, mode='a', encoding=json_data["task"]["target"]["encoding"])
         else:
