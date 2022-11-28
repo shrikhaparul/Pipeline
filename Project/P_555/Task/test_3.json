@@ -1,0 +1,60 @@
+{
+  "project_id": "1234",		
+  "project_name": "intellikart",	
+  "task": {	
+      "task_id": "task_id_1",	
+      "task_name": "",
+      "task_type": "ingestion",
+      "active": "Y",
+      "execution_order": "",
+      "config_file":  "D:\\30 day python\\create code\\config_2.ini",
+      "source": {	
+          "source_type": "csvfile_read",
+          "source_file_path": "C:\\Users\\PuneethS\\Downloads\\",
+          "source_file_name": "sales_data",
+          "load_method": "",
+          "extract_type": "",
+          "connection_name": "",
+          "table_name": "",
+          "schema": "",
+          "query": "",
+          "file_format": "",
+          "delimiter":",",
+          "skip_header":" ",
+          "skip_footer":" ",
+          "quote_char": " ",
+          "escape_char":" ",
+          "alias_columns":" ",
+          "select_columns": " ",
+          "chunk_size":1000,			
+          "quoting": "",		
+          "encoding": "utf-8 "
+      },
+      "target": {	
+          "target_type": "parquetfile_write",
+          "load_type": "",
+          "batch_size": "",
+          "connection_name": " ",
+          "table_name": " ",
+          "schema": " ",
+          "file_delimiter": "",
+          "file_format": "",
+          "target_file_path": "D:\\New_folder\\",
+          "target_file_name": "125.parquet",
+          "encoding": " ",
+          "operation":"create"
+      },
+      "data_quailty": {
+              "dq_id": "",
+              "type": "pre_check",
+              "check": "column_values_to_be_between",
+              "parameters": "SALES|0|15000",
+              "active": "Y",
+              "ignore_bad_records": "Y",
+              "threshold_bad_records": "30"
+          }
+      ,
+      "on_failure": ""
+    }
+  }
+  
