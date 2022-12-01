@@ -10,7 +10,7 @@
         "config_file":  "D:\\30 day python\\create code\\config_2.ini",
         "source": {	
             "source_type": "parquetfile_read",
-            "source_file_path": "D:\\New folder\\",
+            "source_file_path": "D:\\New_folder\\",
             "source_file_name": "125.parquet",
             "load_method": "",
             "extract_type": "",
@@ -33,7 +33,7 @@
         "target": {	
             "target_type": "csvfile_write",
             "file_delimiter": ",",
-            "target_file_path": "D:\\New folder\\sales_test_15.csv",
+            "target_file_path": "D:\\New_folder\\sales_test_15.csv",
             "encoding": "utf-8",
             "header": "False",
             "connection_name":""
