@@ -1,0 +1,79 @@
+{
+    "project_id": "1234",		
+    "project_name": "intellikart",	
+    "task": {	
+        "task_id": "csv_to_postgres",	
+        "task_name": "",
+        "task_type": "ingestion",
+        "active": "Y",
+        "execution_order": "",
+        "config_file": "D:\\New_folder\\Ingestion_Kart\\Pipeline\\Project\\P_555\\postgresql_1.json",
+        "config_conn_name":"postgresql_1",
+        "source": {	
+            "source_type": "csv_read",
+            "source_file_path": "D:\\Ingestion\\",
+            "source_file_name": "sales_data_full",
+            "load_method": "",
+            "extract_type": "",
+            "table_name": "",
+            "connection_name":"",
+            "schema": "",
+            "query": "",
+            "connection_file_path": "",
+            "file_format": "",
+            "delimiter":",",
+            "skip_header":" ",
+            "skip_footer":" ",
+            "quote_char": " ",
+            "escape_char":" ",
+            "alias_columns":" ",
+            "select_columns": " ",
+            "chunk_size":1000,			
+            "quoting": "",		
+            "encoding": "utf-8",
+            "sheet_name":0,
+            "updated_rejected_records": ""
+        },
+        "target": {	
+            "target_type": "postgres_write",
+            "load_type": "",
+            "batch_size": "",
+            "connection_file_path": "D:\\New_folder\\Ingestion_Kart\\Pipeline\\Project\\P_555\\postgresql_1.json",
+            "connection_name": "postgresql_1",
+            "table_name": "tera",
+            "schema": "public",
+            "file_delimiter": "",
+            "file_format": "",
+            "target_file_path": "",
+            "target_file_name": "",
+            "encoding": " ",
+            "operation":"create"
+        },
+        "data_quality_files":{
+            "acptd_and_rjctd_file_path":"D:\\New_folder\\",
+            "qc_report_file_path":"D:\\New_folder\\"
+        },
+        "data_quality": [
+          {
+            "s.no": "1",
+            "check": "column_values_to_be_unique",
+            "parameters": "ORDERNUMBER",
+            "active": "Y",
+          "ignore_bad_records": "Y",
+          "threshold_bad_records": 20,
+          "type": "pre_check"
+            },
+          
+            {
+            "s.no": "2",
+            "check": "column_value_lengths_to_be_between",
+            "parameters": "STATUS|1|8",
+            "active": "Y",
+          "ignore_bad_records": "Y",
+          "threshold_bad_records": 20,
+          "type": "post_check"
+            }
+        ],
+        "on_failure": ""
+      }
+    }
