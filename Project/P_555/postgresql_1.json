@@ -2,8 +2,8 @@
     "postgresql_1": {
       "host": "127.0.0.1",
       "user": "postgres",
-      "password": "abcdef",
-      "database": "postgres",
+      "password": "Koshu@2018",
+      "database": "seconddb",
       "port": "5432"
     }
 }
