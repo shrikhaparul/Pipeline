@@ -15,11 +15,11 @@
           "source_file_name": "",
           "load_method": "",
           "extract_type": "",
-          "table_name": "sales1234",
+          "table_name": "sales1",
           "connection_name":"postgresql_1",
           "schema": "public",
           "query": " ",
-          "connection_file_path": "D:\\test\\test\\Ingestion_Kart\\Pipeline\\Project\\P_555\\postgresql_1.json",
+          "connection_file_path": "D:\\New_folder\\Ingestion_Kart\\Pipeline\\Project\\P_555\\postgresql_1.json",
           "file_format": "",
           "delimiter":",",
           "skip_header":" ",
@@ -38,10 +38,10 @@
           "target_type": "mysql_write",
           "load_type": "",
           "batch_size": "",
-          "connection_file_path": "D:\\test\\test\\Ingestion_Kart\\Pipeline\\Project\\P_555\\mysql_1.json",
+          "connection_file_path": "D:\\New_folder\\Ingestion_Kart\\Pipeline\\Project\\P_555\\mysql_1.json",
           "connection_name": "mysql_1",
           "table_name": "tera",
-          "schema": "njdot",
+          "schema": "",
           "file_delimiter": "",
           "file_format": "",
           "target_file_path": "",
@@ -50,8 +50,8 @@
           "operation":"create"
       },
       "data_quality_files":{
-          "acptd_and_rjctd_file_path":"D:\\test\\",
-          "qc_report_file_path":"D:\\test\\"
+          "acptd_and_rjctd_file_path":"D:\\New_folder\\",
+          "qc_report_file_path":"D:\\New_folder\\"
       },
       "data_quality": [
         {
