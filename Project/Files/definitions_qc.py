@@ -12,6 +12,8 @@ import numpy as np
 import pandas as pd
 
 
+
+
 def initiate_logging(project, log_loc):
     """Function to initiate log file which will be used across framework"""
     try:
@@ -263,19 +265,21 @@ ing_loc, src_loc, tgt_loc, ing_encoding, ing_sheetnum, conn_str, dq_output_loc=N
         raise Exception("error in qc_check function:" + str(error)) from error
 
 
-def qc_pre_check(config_json_file):
+def qc_pre_check(config_json_file,cm_json_file):
     """Function to perform pre_check operation"""
     try:
         #To read configure json file to extract important deatils
         control_table = pd.DataFrame(config_json_file['task']['data_quality'])
         #Creating connection to postgresql by using sqlalchemy
-        conn_str = get_config_section(
-            config_json_file['task']['config_file'], 
-            config_json_file['task']['config_conn_name'])
-        conn = sqlalchemy.create_engine(f'postgresql://{conn_str["user"]}'
-                f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}')
-        #Reading postgresql checks_mapping table
-        checks_mapping = pd.read_sql("select * from checks_mapping", conn)
+        # conn_str = get_config_section(
+        #     config_json_file['task']['config_file'], 
+        #     config_json_file['task']['config_conn_name'])
+        # conn = sqlalchemy.create_engine(f'postgresql://{conn_str["user"]}'
+        #         f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}')
+        # #Reading postgresql checks_mapping table
+        # checks_mapping = pd.read_sql("select * from checks_mapping", conn)
+
+        checks_mapping = pd.DataFrame(cm_json_file['checks_mapping'])
         src_conn_str =  get_config_section(
             config_json_file['task']['source']['connection_file_path'],
             config_json_file[
@@ -316,24 +320,28 @@ def qc_pre_check(config_json_file):
         logging.info("Pre_check operation completed")
         # pre_check_result.to_csv('pre_check_result' + datetime.now().strftime(
         #     "%d_%m_%Y_%H_%M_%S") + '.csv',index=False)
+        
         return pre_check_result
+        
     except Exception as error:
         logging.exception("error in qc_pre_check function %s.", str(error))
         raise Exception("error in qc_pre_check function:" + str(error)) from error
 
 
-def qc_post_check(config_json_file):
+def qc_post_check(config_json_file,cm_json_file):
     """Function to perform post_check operation"""
     try:
         control_table = pd.DataFrame(config_json_file['task']['data_quality'])
         #Creating connection to postgresql by using sqlalchemy
-        conn_str = get_config_section(
-            config_json_file['task']['config_file'], 
-            config_json_file['task']['config_conn_name'])
-        conn = sqlalchemy.create_engine(f'postgresql://{conn_str["user"]}'
-                f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}')
-        #Reading postgresql checks_mapping table
-        checks_mapping = pd.read_sql("select * from checks_mapping", conn)
+        # conn_str = get_config_section(
+        #     config_json_file['task']['config_file'], 
+        #     config_json_file['task']['config_conn_name'])
+        # conn = sqlalchemy.create_engine(f'postgresql://{conn_str["user"]}'
+        #         f':{conn_str["password"].replace("@", "%40")}@{conn_str["host"]}')
+        # #Reading postgresql checks_mapping table
+        # checks_mapping = pd.read_sql("select * from checks_mapping", conn)
+
+        checks_mapping = pd.DataFrame(cm_json_file['checks_mapping'])
         tgt_conn_str =  get_config_section(
             config_json_file['task']['target']['connection_file_path'],
             config_json_file['task']['target']['connection_name']) if config_json_file[
@@ -365,7 +373,9 @@ def qc_post_check(config_json_file):
                         'task']['source']['encoding'], config_json_file[
                         'task']['source']['sheet_name'], tgt_conn_str, output_loc)
         logging.info("Post_check operation completed")
+       
         return post_check_result
+        
     except Exception as error:
         logging.error("error in qc_post_check function %s.", str(error))
         raise Exception("error in qc_post_check function:" + str(error)) from error

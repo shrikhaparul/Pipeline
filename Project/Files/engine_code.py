@@ -69,13 +69,13 @@ def download_files(Project_id,Task_id,path):
     
     #curl command for downloading the files
     src_py = 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+source_file_name+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/'+source_file_name
+    'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+source_file_name
     trgt_py = 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+target_file_name+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/'+target_file_name
+    'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+target_file_name
     QC_py= 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+QC_check_file+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/'+QC_check_file
+    'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+QC_check_file
     Utility_py= 'curl -o '+path+'Ingestion_Kart\\Pipeline\\Project\\'+Project_id+'\\Task\\'+Task_id+'\\'+Utility_file+' '\
-    'https://raw.githubusercontent.com/shrikhaparul/Pipeline/main/Project/Files/'+Utility_file
+    'https://raw.githubusercontent.com/shrikhaparul/pipeline/main/Project/Files/'+Utility_file
     
     #calling the subprocess to run curl command function
     subprocess.call(src_py)
@@ -112,8 +112,9 @@ def engine_main(Project_id,Task_id,path):
         logging.exception("error in reading json %s.", str(error))
         raise Exception("error in reading json: " + str(error)) from error
 
-    # Precheck code
-    if json_data["task"]["source"]["source_type"] == 'csv_read' or json_data["task"]["source"]["source_type"] == 'postgres_read' or json_data["task"]["source"]["source_type"] == 'mysql_read':
+    # Precheck script execution starts here
+    if json_data["task"]["source"]["source_type"] == 'csv_read' or json_data["task"]["source"]["source_type"] == 'postgres_read' or\
+     json_data["task"]["source"]["source_type"] == 'mysql_read' or json_data["task"]["source"]["source_type"] == 'mssql_read':
        pre_check = dq.qc_pre_check(json_data)
 
     
@@ -136,6 +137,8 @@ def engine_main(Project_id,Task_id,path):
         from xml_read import read
     elif json_data["task"]["source"]["source_type"] == "textfile_read":
         from text_read import read
+    elif json_data["task"]["source"]["source_type"] == "mssql_read":
+        from mssql_read import read
 
 
     if json_data["task"]["target"]["target_type"] == "postgres_write":
@@ -156,12 +159,16 @@ def engine_main(Project_id,Task_id,path):
         from xml_write import write
     elif json_data["task"]["target"]["target_type"] == "textfile_write":
         from text_write import write
+    elif json_data["task"]["target"]["target_type"] == "mssql_write":
+        from mssql_write import write
 
 
     # main script execution starts here
     if json_data["task"]["source"]["source_type"] == "csv_read" or \
         json_data["task"]["source"]["source_type"] == "postgres_read" or \
-        json_data["task"]["source"]["source_type"] == "mysql_read" or  json_data["task"]["source"]["source_type"] == "parquetfile_read"    :
+        json_data["task"]["source"]["source_type"] == "mysql_read" or  json_data["task"]["target"]["target_type"] == "mssql_write" or\
+        json_data["task"]["target"]["target_type"] == "mysql_write"  or\
+        json_data["task"]["target"]["target_type"] == "postgres_write"      :
         df=read(json_data)
         # logging.info(df.__next__())
         COUNTER=0
@@ -179,24 +186,13 @@ def engine_main(Project_id,Task_id,path):
             # logging.info(i)
             COUNTER+=1
             write(json_data, i)
-
-
-    # if json_data["task"]["task_type"]=="ingestion":
-    #     logging.info("entered  in to ingestion")
-        
-    #     df=read(json_data)
-    #     # logging.info(df.__next__())
-    #     COUNTER=0
-    #     for i in df :
-    #         # logging.info(i)
-    #         COUNTER+=1
-    #         write(json_data, i, COUNTER)
-    #     logging.info(" ingestion  done")
     else:
         logging.info("only ingestion available currently")
 
-    if json_data["task"]["target"]["target_type"] == 'csv_write' or json_data["task"]["target"]["target_type"] == 'postgres_write' or json_data["task"]["target"]["target_type"] == 'mysql_write':
-     
+
+    # postcheck script execution starts here
+    if json_data["task"]["target"]["target_type"] == 'csv_write' or json_data["task"]["target"]["target_type"] == 'postgres_write' or \
+      json_data["task"]["target"]["target_type"] == 'mysql_write' or json_data["task"]["target"]["target_type"] == 'mssql_write' :
         #post check code
         post_check = dq.qc_post_check(json_data)
 
