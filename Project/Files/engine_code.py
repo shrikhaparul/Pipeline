@@ -10,7 +10,7 @@ from datetime import datetime
 
 def download_files(Project_id,Task_id,path):
     with open(
-        r""+path+'app/Program/Project/Pipeline/Task/'+Task_id+'/'+".json","r", encoding='utf-8') as jsonfile:
+        r""+path+'app/Program/Project/Pipeline/Task/'+Task_id+".json","r", encoding='utf-8') as jsonfile:
         config_json = json.load(jsonfile)
     source_conn_file = config_json['task']['source']['connection_name']
     target_conn_file = config_json['task']['target']['connection_name']
